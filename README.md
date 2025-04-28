@@ -1,5 +1,5 @@
 # riscv_32_emulator
-riscv_32_emulator/
+riscv_emulator/
 ├── include/
 │   └── cpu.h           (CPU struct, prototypes)
 │   └── memory.h        (Memory struct, prototypes)
