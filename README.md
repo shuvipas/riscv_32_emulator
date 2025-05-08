@@ -24,8 +24,10 @@ Work Flow
     - init sp and pc
 - main loop
         - initialize  the cpu
-        - Instruction Fetch/Decode/Execute
+        - Instruction Fetch/Decode/Execute+Memory
 
-- Instruction Fetch
-- Instruction Decode
-- Instruction Execute
+- Fetch stage
+    - get the current Instruction from the  pc address (need to get the next 4 bytes) and pc++ 
+- Decode stage
+- Execute+Memory stage
+
