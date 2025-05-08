@@ -11,3 +11,21 @@ riscv_emulator/
 │   └── program.bin     (first test program)
 ├── Makefile
 └── README.md
+
+Core Components
+    - Memory (dram 1 Mib)
+    - cpu 
+        - 32 regs
+        - pc
+    
+Work Flow
+- Core Components
+- cpu reset
+    - init sp and pc
+- main loop
+        - initialize  the cpu
+        - Instruction Fetch/Decode/Execute
+
+- Instruction Fetch
+- Instruction Decode
+- Instruction Execute
