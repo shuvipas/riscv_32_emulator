@@ -14,6 +14,8 @@ riscv_emulator/
 
 Core Components
     - Memory (dram 1 Mib)
+        - data load
+        - data store
     - cpu 
         - 32 regs
         - pc
@@ -23,12 +25,16 @@ Work Flow
 - cpu reset
     - init sp and pc
 - main loop
-        - initialize  the cpu
-        - Instruction cycle (Fetch/Decode/Execute+Memory)
+    - initialize  the cpu
+    - Instruction cycle (Fetch/Decode/Execute+Memory)
             
 - Fetch stage
     - get the current Instruction from the  pc address (need to get the next 4 bytes) and pc++ 
-    todo: data alignement
+    
 - Decode stage
+    - decide the type by the opcode
+    - cast into the type struct
+    
 - Execute+Memory stage
+    - todo: data alignement
 

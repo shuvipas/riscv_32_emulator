@@ -1,11 +1,16 @@
 #include "cpu.h"
 #include "dram.h"
+#define BYTE 1
+#define WORD 4
 
 typedef uint8_t byte;
 typedef uint32_t word;
 
-word fetch_instruction(CPU* cpu,DRAM* ram ){
-
+word fetch_instruction(CPU* cpu,DRAM* ram, uint32_t* pc){
+    word ins;
+    dram_load(ram,*pc,&ins, sizeof(ins));
+    *pc += WORD;
+    return ins;
 }
 
 void initialize_cpu(CPU* cpu){
