@@ -34,8 +34,7 @@ Sarah L. Harris and David Harris
 typedef enum
 {
     I_LOAD = 3,
-    I_IMMEDIATE_1 = 19,
-    I_IMMEDIATE_2 = 27,
+    I_IMMEDIATE = 19,
     I_JUMP = 103,
 
     U_ADD = 23,
@@ -43,9 +42,8 @@ typedef enum
 
     S = 35,
 
-    R_1 = 51,
-    R_2 = 59,
-
+    R = 51,
+ 
     B = 99,
 
     J = 111
