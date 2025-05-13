@@ -78,9 +78,8 @@ void test_endianness(DRAM* dram) {
 
 
 int main() {
-    DRAM dram;
-    memset(&dram, 0, sizeof(dram));  // Initialize memory to zero
-
+    DRAM dram = {0};
+   
     test_byte_store_load(&dram);
     test_half_word_store_load(&dram);
     test_word_store_load(&dram);
