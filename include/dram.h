@@ -1,3 +1,5 @@
+#ifndef DRAM_H
+#define DRAM_H
 #include <stdint.h>
 #include <string.h>
 // https://projectf.io/posts/riscv-load-store/
@@ -37,3 +39,4 @@ void dram_store(DRAM* dram, uint32_t address, void* src, unsigned int size){
 }
 
 
+#endif
