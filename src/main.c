@@ -26,11 +26,11 @@ INS_TYPE decode_instruction(word ins)
 }
 void execute_r_type(CPU *cpu, DRAM *ram, R_TYPE *ins_format)
 {
-    //R_TYPE *ins_format = &ins;
-    byte rd  = ins_format->rd;
+    word* rd_ptr  = &cpu->reg[ins_format->rd];
+    
     byte funct3 = ins_format->funct3;
-    byte rs1 =ins_format->rs1;
-    byte rs2 =ins_format->rs2;
+    word rs1 = cpu->reg[ins_format->rs1];
+    word rs2 =cpu->reg[ins_format->rs2];
     byte funct7 =ins_format->funct7;
 
 
@@ -39,7 +39,7 @@ void execute_r_type(CPU *cpu, DRAM *ram, R_TYPE *ins_format)
         switch (funct3)
         {
         case 0: //add
-            cpu->reg[rd] = cpu->reg[rs1]+cpu->reg[rs2]; 
+            *rd_ptr = rs1 + rs2; 
             break;
         case 1:
             /* code */
@@ -72,7 +72,7 @@ void execute_r_type(CPU *cpu, DRAM *ram, R_TYPE *ins_format)
         switch (funct3)
         {
         case 0: //sub
-            cpu->reg[rd] = cpu->reg[rs1] - cpu->reg[rs2]; 
+            *rd_ptr = rs1 - rs2;  
             //todo check for negitive 
             break;
         case 1:
