@@ -24,9 +24,11 @@ Work Flow
 - Core Components
 - cpu reset
     - init sp and pc
-- main loop
+- main 
     - initialize  the cpu
-    - Instruction cycle (Fetch/Decode/Execute+Memory)
+    - main loop 
+        -  read a binary file and copy it to are ram
+        - Instruction cycle (Fetch/Decode/Execute+Memory)
             
 - Fetch stage
     - get the current Instruction from the  pc address (need to get the next 4 bytes) and pc++ 

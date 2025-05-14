@@ -18,29 +18,30 @@ void execute_r_type(CPU *cpu, DRAM *ram, R_TYPE *ins_format)
         case 0: //add
             *rd_ptr = rs1 + rs2; 
             break;
-        case 1:
+        case 1: // sll-shift left logical
+        *rd_ptr = rs1 << rs2;
+            break;
+        case 2: //slt- set less than
             /* code */
             break;
-        case 2:
+        case 3: //sltu - set less than unsigned
             /* code */
             break;
-        case 3:
+        case 4: // xor
+            *rd_ptr =rs1 ^ rs2;
+            break;
+        case 5: //srl -shift right logical
             /* code */
             break;
-        case 4:
-            /* code */
+        case 6: //or
+            *rd_ptr = rs1 | rs2;
             break;
-        case 5:
-            /* code */
-            break;
-        case 6:
-            /* code */
-            break;
-        case 7:
-            /* code */
+        case 7: //and
+            *rd_ptr = rs1 &rs2;
             break;
 
         default:
+        printf("ERROR: execute_r_type funct3 = %d is not sopported\n", funct3);
             break;
         }
     }
@@ -48,35 +49,19 @@ void execute_r_type(CPU *cpu, DRAM *ram, R_TYPE *ins_format)
     {
         switch (funct3)
         {
-        case 0: //sub
-            *rd_ptr = rs1 - rs2;  
+        case 0: //sub 
             //todo check for negitive 
             break;
-        case 1:
+        case 5: //sra - shift right arithmetic
             /* code */
             break;
-        case 2:
-            /* code */
-            break;
-        case 3:
-            /* code */
-            break;
-        case 4:
-            /* code */
-            break;
-        case 5:
-            /* code */
-            break;
-        case 6:
-            /* code */
-            break;
-        case 7:
-            /* code */
-            break;
-
         default:
+        printf("ERROR: execute_r_type funct3 = %d is not sopported\n", funct3);
             break;
         }
+    }
+    else{
+        printf("ERROR: execute_r_type funct7 = %d is not sopported\n", funct7);
     }
 }
 

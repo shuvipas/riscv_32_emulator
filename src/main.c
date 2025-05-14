@@ -8,7 +8,7 @@
 word fetch_instruction(CPU *cpu, DRAM *ram)
 {
     word ins;
-    dram_load(ram, &cpu->pc, &ins, sizeof(ins));
+    dram_load(ram, cpu->pc, &ins, sizeof(ins));
     cpu->pc += WORD;
     return ins;
 }
@@ -26,8 +26,7 @@ INS_TYPE decode_instruction(word ins)
     return (INS_TYPE)ins;
 }
 
-
-void execute_instruction(CPU *cpu, DRAM *ram, word ins, INS_TYPE type)
+int execute_instruction(CPU *cpu, DRAM *ram, word ins, INS_TYPE type)
 {
     switch (type)
     {
@@ -47,21 +46,40 @@ void execute_instruction(CPU *cpu, DRAM *ram, word ins, INS_TYPE type)
         execute_b_type(cpu, ram, ins);
         break;
     case R:
-        execute_r_type(cpu, ram, ins);
+        execute_r_type(cpu, ram, &ins);
         break;
     case J:
         execute_j_type(cpu, ram, ins);
         break;
     default:
-        printf("ERROR: execute_instruction bad opcode: %d\n", type);
+        printf("ERROR: execute_instruction opcode = %d is not sopported\n", type);
+        return 1;
         break;
     }
+    return 0;
 }
-int main()
+void read_file(DRAM *ram, char *filename)
 {
+}
+int main(int argc, char *argv[])
+{
+    if (argc != 2)
+    {
+        printf("Usage: missing binary <filename>\n");
+        exit(1);
+    }
     CPU cpu = {0};
     DRAM ram = {0};
     initialize_cpu(&cpu);
+    read_file(&ram, argv[1]);
+    int cpu_stop = 0;
+
+    while (!cpu_stop)
+    {
+        word ins = fetch_instruction(&cpu, &ram);
+        INS_TYPE ins_type = decode_instruction(ins);
+        cpu_stop = execute_instruction(&cpu, &ram, ins, ins_type);
+    }
     word ins = 0b0110011;
     printf("%x\n", decode_instruction(ins));
 }
