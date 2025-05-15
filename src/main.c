@@ -79,6 +79,7 @@ int main(int argc, char *argv[])
         word ins = fetch_instruction(&cpu, &ram);
         INS_TYPE ins_type = decode_instruction(ins);
         cpu_stop = execute_instruction(&cpu, &ram, ins, ins_type);
+        print_registers(&cpu);
     }
     word ins = 0b0110011;
     printf("%x\n", decode_instruction(ins));
