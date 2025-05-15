@@ -1,8 +1,10 @@
+#include <stdio.h>
 #include "instruction_set.h"
 
 
-void execute_r_type(CPU *cpu, DRAM *ram, R_TYPE *ins_format)
+void execute_r_type(CPU *cpu, word *ins)
 {
+    R_TYPE *ins_format = (R_TYPE*) ins;
     word* rd_ptr  = &cpu->reg[ins_format->rd];
     
     byte funct3 = ins_format->funct3;
@@ -70,8 +72,8 @@ void execute_r_type(CPU *cpu, DRAM *ram, R_TYPE *ins_format)
     }
 }
 
-void execute_i_type(CPU *cpu, DRAM *ram, word ins) {}
-void execute_s_type(CPU *cpu, DRAM *ram, word ins) {}
-void execute_b_type(CPU *cpu, DRAM *ram, word ins) {}
-void execute_u_type(CPU *cpu, DRAM *ram, word ins) {}
-void execute_j_type(CPU *cpu, DRAM *ram, word ins) {}
+// void execute_i_type(CPU *cpu, DRAM *ram, word ins) {}
+// void execute_s_type(CPU *cpu, DRAM *ram, word ins) {}
+// void execute_b_type(CPU *cpu, DRAM *ram, word ins) {}
+// void execute_u_type(CPU *cpu, DRAM *ram, word ins) {}
+// void execute_j_type(CPU *cpu, DRAM *ram, word ins) {}

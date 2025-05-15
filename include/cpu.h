@@ -82,4 +82,5 @@ typedef struct
     word imm : 19;
 } UJ_TYPE;
 
+void print_registers(CPU *cpu);
 #endif

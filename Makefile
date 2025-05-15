@@ -4,28 +4,47 @@ CC = gcc
 # Compiler flags (for debugging and optimization)
 CFLAGS = -Wall -g -I./include
 
-# Source and Object files
-SRC = src/main.c
+# Source and Object files for the emulator
+SRC = src/main.c src/cpu.c src/instruction_set.c src/dram.c
 OBJ = $(SRC:.c=.o)
 
-# Output binary name
-OUT = riscv_emulator
+# Test files
+TEST_SRC = include/instruction_set_test.c include/dram_test.c
+TEST_OBJ = $(TEST_SRC:.c=.o)
 
-# Default target to build the project
+# Output binary names
+OUT = riscv_emulator
+TEST_OUT = instruction_set_test dram_test
+
+# Default target to build the emulator
 all: $(OUT)
 
-# Link object files to create the executable
+# Build the emulator
 $(OUT): $(OBJ)
 	$(CC) $(OBJ) -o $(OUT)
 
-# Compile the source file to object file
+# Build test binaries
+instruction_set_test: include/instruction_set_test.c src/cpu.c src/instruction_set.c src/dram.c
+	$(CC) $(CFLAGS) $^ -o $@
+
+dram_test: include/dram_test.c src/dram.c
+	$(CC) $(CFLAGS) $^ -o $@
+
+# Compile source files to object files
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Clean up object files and the executable
-clean:
-	rm -f $(OBJ) $(OUT)
-
-# Run the emulator after building it
+# Run the emulator
 run: $(OUT)
 	./$(OUT)
+
+# Run tests
+test: instruction_set_test dram_test
+	./instruction_set_test
+	./dram_test
+
+# Clean up object files and binaries
+clean:
+	rm -f $(OBJ) $(TEST_OBJ) $(OUT) $(TEST_OUT)
+
+.PHONY: all run test clean

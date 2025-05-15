@@ -86,6 +86,6 @@ int main() {
     test_double_word_store_load(&dram);
     test_endianness(&dram);
 
-    printf("All DRAM tests passed successfully!\n");
+    printf("All DRAM tests passed.\n\n");
     return 0;
 }
