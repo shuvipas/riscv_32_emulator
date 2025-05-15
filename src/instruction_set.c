@@ -16,22 +16,22 @@ void execute_r_type(CPU *cpu, DRAM *ram, R_TYPE *ins_format)
         switch (funct3)
         {
         case 0: //add
-            *rd_ptr = rs1 + rs2; 
+            *rd_ptr = (int32_t)rs1 + (int32_t)rs2; 
             break;
         case 1: // sll-shift left logical
-        *rd_ptr = rs1 << rs2;
+            *rd_ptr = rs1 << rs2;
             break;
         case 2: //slt- set less than
-            /* code */
+            *rd_ptr = ((int32_t)rs1 < (int32_t)rs2)?1:0;
             break;
         case 3: //sltu - set less than unsigned
-            /* code */
+            *rd_ptr = (rs1 < rs2)?1:0;
             break;
         case 4: // xor
             *rd_ptr =rs1 ^ rs2;
             break;
         case 5: //srl -shift right logical
-            /* code */
+            *rd_ptr = rs1 >> rs2;
             break;
         case 6: //or
             *rd_ptr = rs1 | rs2;
@@ -51,9 +51,14 @@ void execute_r_type(CPU *cpu, DRAM *ram, R_TYPE *ins_format)
         {
         case 0: //sub 
             //todo check for negitive 
+            *rd_ptr = (int32_t)rs1 - (int32_t)rs2;
             break;
         case 5: //sra - shift right arithmetic
-            /* code */
+        if ((int32_t)rs1 >= 0) {
+            *rd_ptr = rs1 >> rs2;
+        } else {
+            *rd_ptr = (rs1 >> rs2) | ~(~0U >> rs2);
+        }
             break;
         default:
         printf("ERROR: execute_r_type funct3 = %d is not sopported\n", funct3);
