@@ -3,13 +3,13 @@
 #include "dram.h"
 #include "instruction_set.h"
 #define BYTE 1
-#define WORD 4
+#define WORD_LEN 4
 
 word fetch_instruction(CPU *cpu, DRAM *ram)
 {
     word ins;
     dram_load(ram, cpu->pc, &ins, sizeof(ins));
-    cpu->pc += WORD;
+    cpu->pc += WORD_LEN;
     return ins;
 }
 
@@ -35,10 +35,10 @@ int execute_instruction(CPU *cpu, DRAM *ram, word ins, INS_TYPE type)
     // case I_JUMP:
     //     execute_i_type(cpu, ram, &ins);
     //     break;
-    // case U_ADD:
-    // case U_LOAD:
-    //     execute_u_type(cpu, ram, ins);
-    //     break;
+    case U_ADD:
+    case U_LOAD:
+        execute_u_type(cpu, ins);
+        break;
     case S:
         execute_s_type(cpu, ram, &ins);
         break;
@@ -48,9 +48,9 @@ int execute_instruction(CPU *cpu, DRAM *ram, word ins, INS_TYPE type)
     case R:
         execute_r_type(cpu, &ins);
         break;
-    // case J:
-    //     execute_j_type(cpu, ram, ins);
-    //     break;
+    case J:
+        execute_j_type(cpu, ram, ins);
+        break;
     default:
         printf("ERROR: execute_instruction opcode = %d is not sopported\n", type);
         return 1;

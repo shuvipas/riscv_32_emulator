@@ -93,40 +93,7 @@ test_sw();
 printf("All S-type instruction tests passed.\n\n");
 }
 
-// void test_sh() {
-//     CPU cpu = {0};
-//     DRAM ram = {0};
-//     SB_TYPE ins = {0};
 
-//     setup_s_type_test(&cpu, &ram, &ins, 1, 2, 0x100, 0xBEEF, 0x6, 0b001);
-//     execute_s_type(&cpu, &ram, (word *)&ins);
-
-//     uint16_t result;
-//     memcpy(&result, &ram.mem[0x106], sizeof(uint16_t));
-//     assert(result == 0xBEEF);
-//     printf("sh passed\n");
-// }
-
-// void test_sw() {
-//     CPU cpu = {0};
-//     DRAM ram = {0};
-//     SB_TYPE ins = {0};
-
-//     setup_s_type_test(&cpu, &ram, &ins, 1, 2, 0x100, 0xDEADBEEF, 0x8, 0b010);
-//     execute_s_type(&cpu, &ram, (word *)&ins);
-
-//     uint32_t result;
-//     memcpy(&result, &ram.mem[0x108], sizeof(uint32_t));
-//     assert(result == 0xDEADBEEF);
-//     printf("sw passed\n");
-// }
-
-// void execute_s_test() {
-//     test_sb();
-//     test_sh();
-//     test_sw();
-//     printf("All S-type instruction tests passed.\n\n");
-// }
 
 /* =============================================================================
  *                            R-TYPE INSTRUCTION TESTS

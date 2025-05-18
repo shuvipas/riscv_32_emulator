@@ -104,7 +104,39 @@ void execute_r_type(CPU *cpu, word *ins)
 }
 
 // void execute_i_type(CPU *cpu, DRAM *ram, word ins) {}
-// void execute_s_type(CPU *cpu, DRAM *ram, word ins) {}
+ void execute_u_type(CPU *cpu, word ins) {
+    UJ_TYPE *ins_format = (UJ_TYPE *)ins;
+    word *rd_ptr = &cpu->reg[ins_format->rd];
+    word imm = ins_format->imm;
+    switch (ins_format->opcode)
+    {
+        case U_ADD: //auipc - add upper immediate to PC (rd = {upimm, 12'b0} + PC)
+            
+        *rd_ptr = (imm<<12) + cpu->pc;
+        break;
+        case U_LOAD: // lui-load upper immediate (rd = {upimm, 12’b0})
+            *rd_ptr = imm<<12;
+        break;
+    default:
+         printf("ERROR: execute_u_type opcode = %d is not sopported\n", ins_format->opcode);
+        break;
+    }
+ }
+ void execute_j_type(CPU *cpu, DRAM *ram, word ins) {
+    UJ_TYPE *ins_format = (UJ_TYPE *)ins;
+    word *rd_ptr = &cpu->reg[ins_format->rd];
+    word imm = ins_format->imm;
+    switch (ins_format->opcode)
+    {
+        case J: // jal -jump and link (PC = JTA, rd = PC + 4)
+            *rd_ptr = cpu->pc+4;
+            cpu->pc = ;
+        break;
+        default:
+             printf("ERROR: execute_j_type opcode = %d is not sopported\n", ins_format->opcode);
+            break;
+    }
+ }
 // void execute_b_type(CPU *cpu, DRAM *ram, word ins) {}
 // void execute_u_type(CPU *cpu, DRAM *ram, word ins) {}
-// void execute_j_type(CPU *cpu, DRAM *ram, word ins) {}
+
