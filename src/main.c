@@ -40,7 +40,7 @@ int execute_instruction(CPU *cpu, DRAM *ram, word ins, INS_TYPE type)
     //     execute_u_type(cpu, ram, ins);
     //     break;
     case S:
-        execute_s_type(cpu, ram, ins);
+        execute_s_type(cpu, ram, &ins);
         break;
     // case B:
     //     execute_b_type(cpu, ram, ins);

@@ -50,7 +50,7 @@ CPU cpu = {0};
 DRAM ram = {0};
 SB_TYPE ins = {0};
 
-setup_s_type_test(&cpu, &ram, &ins, 1, 2, 0x100, 0xAA, 0x4, 0b000);
+setup_s_type_test(&cpu, &ram, &ins, 1, 2, DRAM_BASE + 0x100, 0xAA, 0x4, 0b000);
 execute_s_type(&cpu, &ram, (word *)&ins);
 
 assert(ram.mem[0x104] == 0xAA);
@@ -62,7 +62,7 @@ CPU cpu = {0};
 DRAM ram = {0};
 SB_TYPE ins = {0};
 
-setup_s_type_test(&cpu, &ram, &ins, 1, 2, 0x100, 0xBEEF, 0x6, 0b001);
+setup_s_type_test(&cpu, &ram, &ins, 1, 2, DRAM_BASE + 0x100, 0xBEEF, 0x6, 0b001);
 execute_s_type(&cpu, &ram, (word *)&ins);
 
 uint16_t result;
@@ -76,7 +76,7 @@ CPU cpu = {0};
 DRAM ram = {0};
 SB_TYPE ins = {0};
 
-setup_s_type_test(&cpu, &ram, &ins, 1, 2, 0x100, 0xDEADBEEF, 0x8, 0b010);
+setup_s_type_test(&cpu, &ram, &ins, 1, 2,DRAM_BASE + 0x100, 0xDEADBEEF, 0x8, 0b010);
 execute_s_type(&cpu, &ram, (word *)&ins);
 
 uint32_t result;
