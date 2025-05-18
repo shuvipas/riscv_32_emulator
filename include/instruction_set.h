@@ -5,5 +5,7 @@
 //instructions refrence https://five-embeddev.com/riscv-user-isa-manual/Priv-v1.12/instr-table.html
 void execute_r_type(CPU *cpu, word *ins);
 void execute_s_type(CPU *cpu, DRAM *dram, word *ins);
+void execute_j_type(CPU *cpu, word ins);
+void execute_u_type(CPU *cpu, word ins);
 
 #endif

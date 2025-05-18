@@ -104,39 +104,46 @@ void execute_r_type(CPU *cpu, word *ins)
 }
 
 // void execute_i_type(CPU *cpu, DRAM *ram, word ins) {}
- void execute_u_type(CPU *cpu, word ins) {
+void execute_u_type(CPU *cpu, word ins)
+{
     UJ_TYPE *ins_format = (UJ_TYPE *)ins;
     word *rd_ptr = &cpu->reg[ins_format->rd];
     word imm = ins_format->imm;
     switch (ins_format->opcode)
     {
-        case U_ADD: //auipc - add upper immediate to PC (rd = {upimm, 12'b0} + PC)
-            
-        *rd_ptr = (imm<<12) + cpu->pc;
+    case U_ADD: // auipc - add upper immediate to PC (rd = {upimm, 12'b0} + PC)
+
+        *rd_ptr = (imm << 12) + cpu->pc;
         break;
-        case U_LOAD: // lui-load upper immediate (rd = {upimm, 12’b0})
-            *rd_ptr = imm<<12;
+    case U_LOAD: // lui-load upper immediate (rd = {upimm, 12’b0})
+        *rd_ptr = imm << 12;
         break;
     default:
-         printf("ERROR: execute_u_type opcode = %d is not sopported\n", ins_format->opcode);
+        printf("ERROR: execute_u_type opcode = %d is not sopported\n", ins_format->opcode);
         break;
     }
- }
- void execute_j_type(CPU *cpu, DRAM *ram, word ins) {
+}
+void execute_j_type(CPU *cpu, word ins)
+{
     UJ_TYPE *ins_format = (UJ_TYPE *)ins;
     word *rd_ptr = &cpu->reg[ins_format->rd];
     word imm = ins_format->imm;
+    word j_imm = ((imm & 0x80000000) >> 11) | // Bit 31 to position 20
+                 ((imm & 0x7FE00000) >> 20) | // Bits 30:21 to positions 10:1
+                 ((imm & 0x00100000) >> 9) |  // Bit 20 to position 11
+                 (imm & 0x000FF000);          // Bits 19:12 remain in positions 19:12
+    if (j_imm & 0x00100000) j_imm = j_imm | 0xffe00000; // Sign extension.
+
     switch (ins_format->opcode)
     {
-        case J: // jal -jump and link (PC = JTA, rd = PC + 4)
-            *rd_ptr = cpu->pc+4;
-            cpu->pc = ;
+    case J: // jal -jump and link (PC = JTA, rd = PC + 4)
+        *rd_ptr = cpu->pc + 4;
+        cpu->pc = cpu->pc + j_imm -4 ;
         break;
-        default:
-             printf("ERROR: execute_j_type opcode = %d is not sopported\n", ins_format->opcode);
-            break;
+    default:
+        printf("ERROR: execute_j_type opcode = %d is not sopported\n", ins_format->opcode);
+        break;
     }
- }
+}
 // void execute_b_type(CPU *cpu, DRAM *ram, word ins) {}
 // void execute_u_type(CPU *cpu, DRAM *ram, word ins) {}
-
