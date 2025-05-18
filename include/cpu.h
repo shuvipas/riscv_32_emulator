@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 typedef uint8_t byte;
+typedef uint16_t half_word;
 typedef uint32_t word;
 
 /*
@@ -69,11 +70,11 @@ typedef struct
 typedef struct
 {
     byte opcode : 8;
-    byte imm_1 : 5;
+    byte imm_0 : 5;
     byte funct3 : 3;
     byte rs1 : 5;
     byte rs2 : 5;
-    byte imm_2 : 7;
+    byte imm_1 : 7;
 } SB_TYPE;
 typedef struct
 {

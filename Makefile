@@ -9,7 +9,7 @@ SRC = src/main.c src/cpu.c src/instruction_set.c src/dram.c
 OBJ = $(SRC:.c=.o)
 
 # Test files
-TEST_SRC = include/instruction_set_test.c include/dram_test.c
+TEST_SRC = tests/instruction_set_test.c tests/dram_test.c
 TEST_OBJ = $(TEST_SRC:.c=.o)
 
 # Output binary names
@@ -24,10 +24,10 @@ $(OUT): $(OBJ)
 	$(CC) $(OBJ) -o $(OUT)
 
 # Build test binaries
-instruction_set_test: include/instruction_set_test.c src/cpu.c src/instruction_set.c src/dram.c
+instruction_set_test: tests/instruction_set_test.c src/cpu.c src/instruction_set.c src/dram.c
 	$(CC) $(CFLAGS) $^ -o $@
 
-dram_test: include/dram_test.c src/dram.c
+dram_test: tests/dram_test.c src/dram.c
 	$(CC) $(CFLAGS) $^ -o $@
 
 # Compile source files to object files
