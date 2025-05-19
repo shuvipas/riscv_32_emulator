@@ -30,11 +30,11 @@ int execute_instruction(CPU *cpu, DRAM *ram, word ins, INS_TYPE type)
 {
     switch (type)
     {
-    // case I_LOAD:
-    // case I_IMMEDIATE:
-    // case I_JUMP:
-    //     execute_i_type(cpu, ram, &ins);
-    //     break;
+    case I_LOAD:
+    case I_IMMEDIATE:
+    case I_JUMP:
+        execute_i_type(cpu, &ins);
+        break;
     case U_ADD:
     case U_LOAD:
         execute_u_type(cpu, ins);
@@ -42,14 +42,14 @@ int execute_instruction(CPU *cpu, DRAM *ram, word ins, INS_TYPE type)
     case S:
         execute_s_type(cpu, ram, &ins);
         break;
-    // case B:
-    //     execute_b_type(cpu, ram, ins);
-    //     break;
+    case B:
+        execute_b_type(cpu,ins);
+        break;
     case R:
         execute_r_type(cpu, &ins);
         break;
     case J:
-        execute_j_type(cpu, ram, ins);
+        execute_j_type(cpu, ins);
         break;
     default:
         printf("ERROR: execute_instruction opcode = %d is not sopported\n", type);

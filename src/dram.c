@@ -1,5 +1,5 @@
-#include<stdlib.h>
-#include<stdio.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include "dram.h"
 
 void dram_load(DRAM* dram, uint32_t address, void* dest, unsigned int size){

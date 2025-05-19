@@ -15,7 +15,7 @@ void test_byte_store_load(DRAM* dram) {
     dram_load(dram, addr, &loaded, sizeof(loaded));
 
     assert(loaded == value);
-    printf("Byte test passed\n");
+    //printf("Byte test passed\n");
 }
 
 void test_half_word_store_load(DRAM* dram) {
@@ -27,7 +27,7 @@ void test_half_word_store_load(DRAM* dram) {
     dram_load(dram, addr, &loaded, sizeof(loaded));
 
     assert(loaded == value);
-    printf("Half-word test passed\n");
+    //printf("Half-word test passed\n");
 }
 
 void test_word_store_load(DRAM* dram) {
@@ -39,7 +39,7 @@ void test_word_store_load(DRAM* dram) {
     dram_load(dram, addr, &loaded, sizeof(loaded));
 
     assert(loaded == value);
-    printf("Word test passed\n");
+    //printf("Word test passed\n");
 }
 
 void test_double_word_store_load(DRAM* dram) {
@@ -51,7 +51,7 @@ void test_double_word_store_load(DRAM* dram) {
     dram_load(dram, addr, &loaded, sizeof(loaded));
 
     assert(loaded == value);
-    printf("Double-word test passed\n");
+    //printf("Double-word test passed\n");
 }
 void test_endianness(DRAM* dram) {
     uint32_t value = 0x11223344;
@@ -68,10 +68,10 @@ void test_endianness(DRAM* dram) {
         printf("Detected little-endian layout (OK for RISC-V)\n");
     } else if (b0 == 0x11 && b3 == 0x44) {
         // If this ever triggers, your host is big-endian
-        fprintf(stderr, "ERROR: Detected big-endian layout — RISC-V simulation expects little-endian\n");
+        printf("ERROR: Detected big-endian layout — RISC-V simulation expects little-endian\n");
         assert(0);
     } else {
-        fprintf(stderr, "ERROR: Unexpected byte pattern: byte0=0x%02X, byte3=0x%02X\n", b0, b3);
+        printf("ERROR: Unexpected byte pattern: byte0=0x%02X, byte3=0x%02X\n", b0, b3);
         assert(0);
     }
 }

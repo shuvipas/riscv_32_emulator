@@ -26,62 +26,6 @@ typedef struct
     uint32_t reg[32];
     uint32_t pc;
 } CPU;
-/*
-    opcode from the book:
-Digital Design and Computer Architecture: RISC-V Edition
-Sarah L. Harris and David Harris
-
-*/
-typedef enum
-{
-    I_LOAD = 3,
-    I_IMMEDIATE = 19,
-    I_JUMP = 103,
-
-    U_ADD = 23,
-    U_LOAD = 55,
-
-    S = 35,
-
-    R = 51,
- 
-    B = 99,
-
-    J = 111
-} INS_TYPE;
-
-typedef struct
-{
-    byte opcode : 8;
-    byte rd : 5;
-    byte funct3 : 3;
-    byte rs1 : 5;
-    byte rs2 : 5;
-    byte funct7 : 7;
-} R_TYPE;
-typedef struct
-{
-    byte opcode : 8;
-    byte rd : 5;
-    byte funct3 : 3;
-    byte rs1 : 5;
-    word imm : 12;
-} I_TYPE;
-typedef struct
-{
-    byte opcode : 8;
-    byte imm_0 : 5;
-    byte funct3 : 3;
-    byte rs1 : 5;
-    byte rs2 : 5;
-    byte imm_1 : 7;
-} SB_TYPE;
-typedef struct
-{
-    byte opcode : 8;
-    byte rd : 5;
-    word imm : 19;
-} UJ_TYPE;
 
 void print_registers(CPU *cpu);
 #endif
