@@ -13,12 +13,7 @@ word fetch_instruction(CPU *cpu, DRAM *ram)
     return ins;
 }
 
-void initialize_cpu(CPU *cpu)
-{
-    cpu->reg[0] = 0x0;                   // x0 hardwired to 0;
-    cpu->reg[2] = DRAM_BASE + DRAM_SIZE; // stack pointer
-    cpu->pc = DRAM_BASE;
-}
+
 INS_TYPE decode_instruction(word ins)
 {
     word mask = 0x7f; // firs 7 bits hi
@@ -60,6 +55,43 @@ int execute_instruction(CPU *cpu, DRAM *ram, word ins, INS_TYPE type)
 }
 void read_file(DRAM *ram, char *filename)
 {
+    FILE *file;
+	byte *buffer;
+	unsigned long fileLen;
+
+	
+	file = fopen(filename, "rb");
+	if (!file)
+	{
+		printf("Unable to open file %s", filename);
+	}
+
+	//Get file length
+	fseek(file, 0, SEEK_END);
+	fileLen=ftell(file);
+	fseek(file, 0, SEEK_SET);
+
+	
+	buffer= malloc(fileLen+1);
+	if (!buffer)
+	{
+		printf("Memory error!");
+        fclose(file);
+	}
+
+	//Read file contents into buffer
+	fread(buffer, fileLen, 1, file);
+	fclose(file);
+
+    // copy the bin executable to dram
+    memcpy(ram->mem, buffer, fileLen*sizeof(byte));
+	free(buffer);
+}
+void initialize_cpu(CPU *cpu)
+{
+    cpu->reg[0] = 0x0;                   // x0 hardwired to 0;
+    cpu->reg[2] = DRAM_BASE + DRAM_SIZE; // stack pointer
+    cpu->pc = DRAM_BASE;
 }
 int main(int argc, char *argv[])
 {
@@ -81,6 +113,6 @@ int main(int argc, char *argv[])
         cpu_stop = execute_instruction(&cpu, &ram, ins, ins_type);
         print_registers(&cpu);
     }
-    word ins = 0b0110011;
-    printf("%x\n", decode_instruction(ins));
+    // word ins = 0b0110011;
+    // printf("%x\n", decode_instruction(ins));
 }

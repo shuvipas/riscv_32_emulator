@@ -40,4 +40,5 @@ Work Flow
 - Execute+Memory stage
     - todo: data alignement
 - Control and Status Registers (CSRs)
+- interrupt controller
 
