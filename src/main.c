@@ -87,12 +87,18 @@ void read_file(DRAM *ram, char *filename)
     memcpy(ram->mem, buffer, fileLen*sizeof(byte));
 	free(buffer);
 }
+
+
 void initialize_cpu(CPU *cpu)
 {
     cpu->reg[0] = 0x0;                   // x0 hardwired to 0;
     cpu->reg[2] = DRAM_BASE + DRAM_SIZE; // stack pointer
     cpu->pc = DRAM_BASE;
 }
+/* =============================================================================
+ *                            MAIN 
+ * =============================================================================
+*/
 int main(int argc, char *argv[])
 {
     if (argc != 2)
