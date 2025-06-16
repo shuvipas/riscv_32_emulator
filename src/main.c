@@ -119,6 +119,4 @@ int main(int argc, char *argv[])
         cpu_stop = execute_instruction(&cpu, &ram, ins, ins_type);
         print_registers(&cpu);
     }
-    // word ins = 0b0110011;
-    // printf("%x\n", decode_instruction(ins));
 }
