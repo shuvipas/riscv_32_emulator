@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "cpu.h"
 #include "dram.h"
 #include "instruction_set.h"
@@ -32,19 +33,19 @@ int execute_instruction(CPU *cpu, DRAM *ram, word ins, INS_TYPE type)
         break;
     case U_ADD:
     case U_LOAD:
-        execute_u_type(cpu, ins);
+        execute_u_type(cpu, &ins);
         break;
     case S:
         execute_s_type(cpu, ram, &ins);
         break;
     case B:
-        execute_b_type(cpu,ins);
+        execute_b_type(cpu,&ins);
         break;
     case R:
         execute_r_type(cpu, &ins);
         break;
     case J:
-        execute_j_type(cpu, ins);
+        execute_j_type(cpu, &ins);
         break;
     default:
         printf("ERROR: execute_instruction opcode = %d is not sopported\n", type);
@@ -91,7 +92,7 @@ void read_file(DRAM *ram, char *filename)
 
 void initialize_cpu(CPU *cpu)
 {
-    cpu->reg[0] = 0x0;                   // x0 hardwired to 0;
+    cpu->reg[0] = 0;                   // x0 hardwired to 0;
     cpu->reg[2] = DRAM_BASE + DRAM_SIZE; // stack pointer
     cpu->pc = DRAM_BASE;
 }
@@ -114,8 +115,10 @@ int main(int argc, char *argv[])
 
     while (!cpu_stop)
     {
+        printf("=== zero = %d \n", cpu.reg[0]);
         word ins = fetch_instruction(&cpu, &ram);
         INS_TYPE ins_type = decode_instruction(ins);
+        printf("=== ins = %d \n", ins);
         cpu_stop = execute_instruction(&cpu, &ram, ins, ins_type);
         print_registers(&cpu);
     }
